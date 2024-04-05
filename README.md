@@ -26,8 +26,8 @@
     sudo systemctl enable ssh
     sudo systemctl start ssh
     ```
+![SSH-client](https://github.com/boolunpeu/linux-server/assets/131985567/927dea6f-2a98-4626-b825-4e2ca0eb07d2)
 
-![[SSH-client 1.png]]
 
 1. **Configure UFW Firewall**:
     
@@ -71,7 +71,8 @@
     
     `./install.sh`
 
-![[mullvad 1.png]]
+![mullvad](https://github.com/boolunpeu/linux-server/assets/131985567/69cc4483-d516-457e-b1e7-8b5d2acfe4cf)
+
 ## Create a partition for /home
 
 Before creating a partition, make sure you have space available on your hard disk for the new partition. You can use tools such as `fdisk` or `parted`. Here's an example of how to use `fdisk` :
@@ -118,7 +119,7 @@ Before creating a partition, make sure you have space available on your hard dis
 
 By following these steps, you will have correctly configured a separate partition for the `/home` directory on your Linux server. This will separate user data from other system data, and ensure better management of disk space and security.
 
-![[PARTITION home.png]]
+![PARTITION home](https://github.com/boolunpeu/linux-server/assets/131985567/eee88b7c-9a01-49b7-9f32-f8e3b66cde63)
 
 
 ### Installing xrdp on the Client:
@@ -212,8 +213,45 @@ sudo systemctl restart isc-dhcp-server
 sudo systemctl enable isc-dhcp-server
 sudo systemctl status isc-dhcp-server
 ```
+![DHCP status](https://github.com/boolunpeu/linux-server/assets/131985567/48e920b2-f03b-4a64-ad7f-8cc2736595c9)
 
-![[DHCP status.png]]
+
+### Setting Up a DNS Server with BIND
+
+1. **Install BIND**:
+   ```bash
+   sudo apt install bind9 dnsutils -y
+   ```
+
+2. **Configure DNS Server**:
+    - Edit the BIND configuration file.
+     ```bash
+      sudo nano /etc/bind/named.conf.options
+     ```
+    - Add the following configuration to the file:
+     ```bash
+     forwarders {
+        8.8.8.8; - Google DNS
+        8.8.4.4.; - Cloudflare DNS 
+    };
+
+    listen-on {any;};
+    ```
+
+1. **Start and Enable BIND**:
+   ```bash
+   sudo systemctl restart bind9
+   sudo systemctl enable bind9
+   ```
+
+2. **Verify DNS Configuration**:
+    - Check the status of the BIND service.
+    ```bash
+      sudo systemctl status bind9
+      ```
+![DNS STATUS](https://github.com/boolunpeu/linux-server/assets/131985567/939bea9e-6c56-4615-89b1-e3636d2479f5)
+
+    The DNS server is now running and ready to resolve domain names for clients on the network.
 
 ### Setting Up HTTP and MariaDB for GLPI
 
@@ -279,7 +317,9 @@ EXIT;
 	(MariaDB = database name : libraryDB
 	user = library@localhost , password : 1234)
 
-![[GLPI.png]]
+![GLPI](https://github.com/boolunpeu/linux-server/assets/131985567/bd07630a-9c00-44f6-b958-10ac1b175552)
+
+
 ### Setting Up SSH
 
 1. **Install Updates and SSH**
@@ -296,8 +336,10 @@ EXIT;
     sudo systemctl status ssh
     ```
 
-![[Status-SSH.png]]
-![[Connexion-SSH.png]]
+![Status-SSH](https://github.com/boolunpeu/linux-server/assets/131985567/de654da0-7c1f-4e99-91ef-6421d017c55f)
+
+![Connexion-SSH](https://github.com/boolunpeu/linux-server/assets/131985567/5cb3e33e-e304-470b-9882-0e8690287efc)
+
 
 ### Configuring Firewall
 
@@ -317,7 +359,9 @@ I use the TCP (Transmission Control Protocol) and I have the following ports ope
     
 - 443/tcp: Standard port for HTTPS (HTTP Secure) - secured web traffic.
 
-![[ufw.png]]
+![ufw](https://github.com/boolunpeu/linux-server/assets/131985567/c5ce2db6-3f23-4d3b-a522-88027a1acfed)
+
+
 ### Backup Configuration Files
 
 1. Let's create our script in `/usr/local/bin/backup_glpi.sh`:
