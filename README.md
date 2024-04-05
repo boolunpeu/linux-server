@@ -8,8 +8,7 @@
     
     As for user creation, I've created a user named "library" with the password "library1234" .
 
-![[VM 1.png]]
-
+![VM](https://github.com/boolunpeu/linux-server/assets/131985567/5f019b98-3ed6-4adc-9217-0b6efddc1d68)
 
 ### Configuration
 
