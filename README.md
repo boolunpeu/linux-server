@@ -1,5 +1,5 @@
+**CLIENT SIDE**
 
-==**CLIENT**==
 ### Install Ubuntu
 
 1. **Mount the Installation ISO on Hyper V**
@@ -156,8 +156,9 @@ sudo systemctl restart xrdp
 
 Thats it for the client side. Now let's move on to the server side.
 
+---
 
-==**SERVER**==
+**SERVER SIDE**
 
 ### Install Ubuntu Server
 
